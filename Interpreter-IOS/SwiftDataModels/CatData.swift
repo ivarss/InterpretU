@@ -10,17 +10,9 @@ import SwiftData
 
 @Model
 class Cat {
-    var id: UUID
     var name: String
     
-    init (id: UUID = UUID(), name: String) {
-        self.id = id
+    init ( name: String) {
         self.name = name
     }
-}
-
-@Model
-class CatWords {
-    var catID = [Cat]()
-    var mainWordID = [Main]()
 }
