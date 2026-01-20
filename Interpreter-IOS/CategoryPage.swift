@@ -14,6 +14,9 @@ struct CategoryPage: View {
     
     @State private var searchText: String = ""
     
+    @State private var title: String = "Kategorier"
+    @State private var categoriesText: [String] = ["JURIDIK", "SJUKVÅRD", "MIGRATION", "SAMHÄLLE"]
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -59,8 +62,7 @@ struct CategoryPage: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
-                                Text("JURIDIK")
-                            }
+                                Text(categoriesText.indices.contains(0) ? categoriesText[0] : "JURIDIK")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)
                             .overlay(
@@ -74,7 +76,7 @@ struct CategoryPage: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
-                                Text("SJUKVÅRD")
+                                Text(categoriesText.indices.contains(1) ? categoriesText[1] : "SJUKVÅRD")
                             }
                             .padding(12)
                             .frame(width: 150, height: 180)
@@ -92,7 +94,7 @@ struct CategoryPage: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
-                                Text("MIGRATION")
+                                Text(categoriesText.indices.contains(2) ? categoriesText[2] : "MIGRATION")
                             }
                             .padding(12)
                             .frame(width: 150, height: 180)
@@ -106,8 +108,7 @@ struct CategoryPage: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 100, height: 100)
-                                Text("SAMHÄLLE")
-                            }
+                                Text(categoriesText.indices.contains(3) ? categoriesText[3] : "SAMHÄLLE")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)
                             .overlay(
@@ -121,7 +122,7 @@ struct CategoryPage: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Kategorier")
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
         }
     }

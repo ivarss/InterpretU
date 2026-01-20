@@ -22,6 +22,7 @@ struct ordPage: View {
     ]
 
     @State private var searchText: String = ""
+    @State private var title: String = "Sjukvård"
 
     private var filteredWords: [Word] {
         if searchText.isEmpty {
@@ -89,7 +90,7 @@ struct ordPage: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .top)
             }
-            .navigationTitle("Sjukvård")
+            .navigationTitle($title)
         }
     }
 }

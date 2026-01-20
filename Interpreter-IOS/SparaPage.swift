@@ -12,10 +12,11 @@ struct SparaPage: View {
 
     let word: ordPage.Word   // tar emot ordet
     @State private var searchText: String = ""
+    @State private var Title: String = "Sparade ord"
 
     var body: some View {
         VStack {
-            Text("Sjukvården")
+            Text(Title)
                 .padding(30)
 
             HStack {
@@ -65,3 +66,4 @@ struct SparaPage: View {
 #Preview {
     ordPage()
 }
+
