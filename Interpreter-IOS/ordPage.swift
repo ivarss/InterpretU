@@ -70,9 +70,10 @@ struct ordPage: View {
                                     .bold()
                                 Spacer()
                                 NavigationLink(destination: SparaPage(word: word)) {
-                                    Image("StarIcon")
+                                    Image(systemName: "star")
                                         .resizable()
-                                        .scaledToFit()
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(.black)
                                         .frame(width: 25, height: 25)
                                 }
                                 
