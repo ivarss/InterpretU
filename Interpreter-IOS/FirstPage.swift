@@ -17,18 +17,6 @@ let languages = ["English 🇬🇧", "Español 🇪🇸", "Castellaño 🇵🇪"
 struct FirstPage: View {
     @State private var sourceLanguage: String = ""
     @State private var targetLanguage: String = ""
-    
-    
-    @State private var title: String = "Välj språk"
-    @State private var subtitle: String = "Välj ditt språk och språket du översätter till"
-    @State private var translateFrom: String = "Översätt från"
-    @State private var translateTo: String = "Översätt till"
-    @State private var LanguageSelectText: String = "Välj språk..."
-    @State private var buttonText: String = "Fortsätt"
-
-    
-    
-    
     private var isContinueDisabled : Bool {
         sourceLanguage == "" || targetLanguage == ""
         || sourceLanguage == targetLanguage
@@ -41,14 +29,14 @@ struct FirstPage: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 180, height: 180)
-                Text(title)
+                Text("Välj språk")
                     .font(Font.title)
                 
-                Text(subtitle)
+                Text("Välj ditt språk och språket du översätter till")
                     .font(.title2)
                     .padding()
                 
-                Text(translateFrom)
+                Text("Översätt från")
                     .padding(.leading, 60)
                     .padding(.top, 60)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,7 +49,7 @@ struct FirstPage: View {
                     }
                 } label: {
                     HStack {
-                        Text(sourceLanguage.isEmpty ? LanguageSelectText : sourceLanguage)
+                        Text(sourceLanguage == "" ? "Välj språk..." : sourceLanguage)
                             .foregroundColor(sourceLanguage == "" ? .gray : .primary)
                         
                         Spacer()
@@ -75,7 +63,7 @@ struct FirstPage: View {
                 }
                 .padding()
                 
-                Text(translateTo)
+                Text("Översätt till")
                     .padding(.leading, 60)
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,7 +76,7 @@ struct FirstPage: View {
                     }
                 } label: {
                     HStack {
-                        Text(targetLanguage.isEmpty ? LanguageSelectText : targetLanguage)
+                        Text(targetLanguage == "" ? "Välj språk...": targetLanguage)
                             .foregroundColor(targetLanguage == "" ? .gray : .primary)
                         
                         Spacer()
@@ -103,7 +91,7 @@ struct FirstPage: View {
                 .padding()
                 
                 NavigationLink(destination:CategoryPage(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
-                    Text(buttonText)
+                    Text("Fortsätt")
                         .padding(20)
                         .foregroundColor(.white)
                         .background(isContinueDisabled ? Color.gray : Color.green)
@@ -120,4 +108,5 @@ struct FirstPage: View {
 #Preview {
     FirstPage()
 }
+
 
