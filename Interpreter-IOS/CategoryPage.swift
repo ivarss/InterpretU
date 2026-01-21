@@ -26,10 +26,9 @@ struct CategoryPage: View {
                         HStack {
                             Text(sourceLanguage)
                             Spacer()
-                            Image(systemName: "arrow.right.circle.fill")
+                            Image("arrowRight")
                                 .resizable()
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .green)
+                                .scaledToFit()
                                 .frame(width: 50, height: 50)
                             Spacer()
                             Text(targetLanguage)
@@ -59,11 +58,10 @@ struct CategoryPage: View {
                         HStack(spacing: 30) {
                             // Juridik
                             VStack {
-                                Image(systemName: "building.columns")
+                                Image("juridikSymbol")
                                     .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
                                 Text(categoriesText.indices.contains(0) ? categoriesText[0] : "JURIDIK")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)
@@ -74,11 +72,10 @@ struct CategoryPage: View {
                             
                             // Sjukvård
                             VStack {
-                                Image(systemName: "heart.circle")
+                                Image("sjukvardSymbol")
                                     .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
                                 Text(categoriesText.indices.contains(1) ? categoriesText[1] : "SJUKVÅRD")
                             }
                             .padding(12)
@@ -93,11 +90,10 @@ struct CategoryPage: View {
                         // Row 2: Migration & Samhälle
                         HStack(spacing: 30) {
                             VStack {
-                                Image(systemName: "globe.europe.africa.fill")
+                                Image("migrationSymbol")
                                     .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
                                 Text(categoriesText.indices.contains(2) ? categoriesText[2] : "MIGRATION")
                             }
                             .padding(12)
@@ -108,11 +104,10 @@ struct CategoryPage: View {
                             )
                             
                             VStack {
-                                Image(systemName: "person.3")
+                                Image("samhalleSymbol")
                                     .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
                                 Text(categoriesText.indices.contains(3) ? categoriesText[3] : "SAMHÄLLE")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)

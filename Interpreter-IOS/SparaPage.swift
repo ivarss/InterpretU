@@ -46,10 +46,9 @@ struct SparaPage: View {
 
                     Spacer()
 
-                    Image(systemName: "star.fill")
+                    Image("StarIcon2")
                         .resizable()
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.green)
+                        .scaledToFit()
                         .frame(width: 30, height: 30)
                 }
                 .padding(30)
