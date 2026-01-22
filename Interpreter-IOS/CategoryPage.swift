@@ -23,9 +23,10 @@ struct CategoryPage: View {
                         HStack {
                             Text(sourceLanguage)
                             Spacer()
-                            Image("arrowRight")
+                            Image(systemName: "arrow.right.circle.fill")
                                 .resizable()
-                                .scaledToFit()
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, .green)
                                 .frame(width: 50, height: 50)
                             Spacer()
                             Text(targetLanguage)
@@ -55,10 +56,11 @@ struct CategoryPage: View {
                         HStack(spacing: 30) {
                             // Juridik
                             VStack {
-                                Image("juridikSymbol")
+                                Image(systemName: "building.columns")
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.green, .green)
+                                    .frame(width: 80, height: 80)
                                 Text("JURIDIK")
                             }
                             .padding(12)
@@ -70,10 +72,11 @@ struct CategoryPage: View {
                             
                             // Sjukvård
                             VStack {
-                                Image("sjukvardSymbol")
+                                Image(systemName: "heart.circle")
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.green, .green)
+                                    .frame(width: 80, height: 80)
                                 Text("SJUKVÅRD")
                             }
                             .padding(12)
@@ -88,10 +91,11 @@ struct CategoryPage: View {
                         // Row 2: Migration & Samhälle
                         HStack(spacing: 30) {
                             VStack {
-                                Image("migrationSymbol")
+                                Image(systemName: "globe.europe.africa.fill")
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.green, .green)
+                                    .frame(width: 80, height: 80)
                                 Text("MIGRATION")
                             }
                             .padding(12)
@@ -102,10 +106,11 @@ struct CategoryPage: View {
                             )
                             
                             VStack {
-                                Image("samhalleSymbol")
+                                Image(systemName: "person.3")
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.green, .green)
+                                    .frame(width: 80, height: 80)
                                 Text("SAMHÄLLE")
                             }
                             .padding(12)
