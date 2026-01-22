@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryPage: View {
+struct CategoryView: View {
     
     let sourceLanguage: String
     let targetLanguage: String
@@ -133,5 +133,5 @@ struct CategoryPage: View {
 }
 
 #Preview {
-    CategoryPage(sourceLanguage: "Svenska", targetLanguage: "Engelska")
+    CategoryView(sourceLanguage: "Svenska", targetLanguage: "Engelska")
 }

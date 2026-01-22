@@ -14,7 +14,7 @@ import SwiftUI
 
 let languages = ["English 🇬🇧", "Español 🇪🇸", "Castellaño 🇵🇪", "Svenska 🇸🇪", "Soomaali 🇸🇴"]
 
-struct FirstPage: View {
+struct FirstView: View {
     @State private var sourceLanguage: String = ""
     @State private var targetLanguage: String = ""
     private var isContinueDisabled : Bool {
@@ -90,7 +90,7 @@ struct FirstPage: View {
                 }
                 .padding()
                 
-                NavigationLink(destination:CategoryPage(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
+                NavigationLink(destination:CategoryView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
                     Text("Fortsätt")
                         .padding(20)
                         .foregroundColor(.white)
@@ -106,7 +106,7 @@ struct FirstPage: View {
 
 
 #Preview {
-    FirstPage()
+    FirstView()
 }
 
 
