@@ -11,15 +11,41 @@ import SwiftData
 
 struct DataView: View {
     @Environment(\.modelContext) var modelContext
-    @Query var words: [Word]
+    @Query var mainWords: [MainWord]
     var body: some View {
+        // TODO: Make a button to manually add live data from csv file.
+        // TODO: Make a button to manually delete current live data.
+        
+        // List to display all the Main words we have and each of their translated words and the languages for it.
         List {
-            ForEach(words) { word in
-                VStack {
-                    Text(word.mWord.wordKey)
-                    Text(word.tranText)
-                    //Text()
-                    //Text()
+            ForEach(mainWords) { mainWord in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Main")
+                        Text(mainWord.wordKey)
+                    }
+                    VStack(alignment: .center) {
+                        Text("Category")
+                        Text(mainWord.cat)
+                    }
+                    Spacer()
+                        DisclosureGroup {
+                            ForEach(mainWord.translation) { tranWord in
+                                VStack{
+                                    
+                                    HStack {
+                                        Text(tranWord.lang + ": ")
+                                        Text(tranWord.tranText)
+                                    }
+                                }
+                            }
+                        } label: {
+                            Spacer()
+                            VStack(alignment: .trailing) {
+                            Text("Translations: ")
+                            Text(String(mainWord.translation.count))
+                        }
+                    }
                 }
             }
         }
@@ -57,7 +83,21 @@ struct DataView: View {
 
 
 #Preview {
-    DataView()
+      do {
+          let config = ModelConfiguration(isStoredInMemoryOnly: true)
+          // Include all SwiftData models used by your view or populate function
+          let container = try ModelContainer(for: MainWord.self, Word.self, configurations: config)
+
+          let context = ModelContext(container)
+          // This must be implemented to insert into SwiftData using the given context
+          populateExamples(context: context)
+
+          return DataView()
+              .modelContainer(container)
+      } catch {
+          fatalError("Failed to create in-memory container: \(error)")
+      }
+  }
     /*do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: Word.self, configurations: config)
@@ -68,4 +108,4 @@ struct DataView: View {
     } catch {
         fatalError("Failed to create container")
     }*/
-}
+
