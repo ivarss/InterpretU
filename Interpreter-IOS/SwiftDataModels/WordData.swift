@@ -11,10 +11,10 @@ import SwiftData
 @Model
 final class MainWord {
     var wordKey : String
-    var cat: String?
+    var cat: String
     @Relationship(deleteRule: .cascade) var translation = [Word]()
     
-    init(wordKey: String, cat: String? = nil, translation: [Word] = []) {
+    init(wordKey: String, cat: String, translation: [Word] = []) {
         self.wordKey = wordKey
         self.cat = cat
         self.translation = translation
@@ -34,3 +34,17 @@ final class Word {
         self.tranText = tranText
     }
 }
+/* Data Model for categories if we decide that we want to utilize it as a object rather than the current choice which is a simple string
+@Model
+class Category {
+    var name: String
+    var icon: String
+    
+    @Relationship(deleteRule: .cascade) var mainwords = [MainWord]()
+    
+    init ( name: String, icon: String) {
+        self.name = name
+        self.icon = icon
+    }
+}
+ */

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-
+/*
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mainwords: [MainWord]
@@ -15,6 +15,7 @@ struct ContentView: View {
     @State var resultword : Word?
     
     func setupwords() {
+                
         /*
         let w1m = MainWord(wordKey: "hellotext")
         let w1en = Word(wordKey: "hello", lang: "en", mword: w1m)
@@ -62,6 +63,8 @@ struct ContentView: View {
         }
     }
     */
+
+        /*
     
     var body: some View {
         VStack {
@@ -97,9 +100,9 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: [Word.self, MainWord.self], inMemory: true)
 }
+*/
 
-
-
+*/
 
 
 

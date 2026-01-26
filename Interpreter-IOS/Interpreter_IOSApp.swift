@@ -12,7 +12,7 @@ import SwiftData
 struct Interpreter_IOSApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Word.self, MainWord.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
