@@ -16,11 +16,15 @@ struct DataView: View {
         List {
             ForEach(words) { word in
                 VStack {
-                    Text(word.mword.wordKey)
+                    Text(word.mWord.wordKey)
+                    Text(word.tranText)
+                    //Text()
+                    //Text()
                 }
             }
         }
     }
+}
     /*
     @Environment(\.modelContext) var modelContext
     @Query var words: [Word]
@@ -46,9 +50,22 @@ struct DataView: View {
     }
 }
 */
+/*
+
+ */
+
+
+
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try ModelContainer(for: Word.self, MainWord.self, configurations: config)
-    let example = try Word(id: "example", text: "Example")
-    ContentView()
+    DataView()
+    /*do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Word.self, configurations: config)
+        let mainExample = try MainWord(wordKey: "hello", cat: "test")
+        let exampleWords = try Word(mWord: "hello", lang: "ES", tranWord: "Hola")
+        return DataView(words: exampleWord)
+            .modelContainer(container)
+    } catch {
+        fatalError("Failed to create container")
+    }*/
 }

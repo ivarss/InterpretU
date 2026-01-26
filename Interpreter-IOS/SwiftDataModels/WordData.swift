@@ -10,13 +10,14 @@ import SwiftData
 
 @Model
 final class MainWord {
-    var wordKey : String = ""
-    var cat: String = ""
-    @Relationship(deleteRule: .cascade) var translations = [Word]()
+    var wordKey : String
+    var cat: String?
+    @Relationship(deleteRule: .cascade) var translation = [Word]()
     
-    init(wordKey: String, cat: String, translations: Word) {
+    init(wordKey: String, cat: String? = nil, translation: [Word] = []) {
         self.wordKey = wordKey
         self.cat = cat
+        self.translation = translation
     }
 }
 
@@ -24,12 +25,12 @@ final class MainWord {
 @Model
 final class Word {
     var mWord: MainWord
-    var lang : String = ""
-    var wordText : String = ""
+    var lang : String
+    var tranText : String
     
-    init(mWord: MainWord, lang: String, wordtext: String) {
+    init(mWord: MainWord, lang: String, tranText: String) {
         self.mWord = mWord
         self.lang = lang
-        self.wordText = wordText
+        self.tranText = tranText
     }
 }
