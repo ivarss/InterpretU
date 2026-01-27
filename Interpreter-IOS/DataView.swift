@@ -9,12 +9,15 @@
 import SwiftUI
 import SwiftData
 
+/// The SwiftUI view to view all the data passed into swiftdata.
 struct DataView: View {
     @Environment(\.modelContext) var modelContext
     @Query var mainWords: [MainWord]
     var body: some View {
         // TODO: Make a button to manually add live data from csv file.
         // TODO: Make a button to manually delete current live data.
+        // TODO: Navigation to this screen from somewhere in our live project.
+        // TODO: Make the UI cleaner, add Frame limits to each section so they seperate nicely.
         
         // List to display all the Main words we have and each of their translated words and the languages for it.
         List {
@@ -51,36 +54,6 @@ struct DataView: View {
         }
     }
 }
-    /*
-    @Environment(\.modelContext) var modelContext
-    @Query var words: [Word]
-
-    var body: some View {
-        NavigationStack{
-            List {
-                ForEach(words) {word in
-                    VStack (alignment: .leading) {
-                        Text(word.key)
-                            .font(.headline)
-                        Text(word.textSV)
-                        Text(word.textES)
-                    }
-                }
-//                onDelete(perform: deleteWord())
-            }
-            .navigationTitle("Basic")
-            .toolbar {
-                Button("Add Samples", action: addSampleWords)
-            }
-        }
-    }
-}
-*/
-/*
-
- */
-
-
 
 #Preview {
       do {
@@ -98,14 +71,4 @@ struct DataView: View {
           fatalError("Failed to create in-memory container: \(error)")
       }
   }
-    /*do {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Word.self, configurations: config)
-        let mainExample = try MainWord(wordKey: "hello", cat: "test")
-        let exampleWords = try Word(mWord: "hello", lang: "ES", tranWord: "Hola")
-        return DataView(words: exampleWord)
-            .modelContainer(container)
-    } catch {
-        fatalError("Failed to create container")
-    }*/
 
