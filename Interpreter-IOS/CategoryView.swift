@@ -1,5 +1,5 @@
 //
-//  Categories.swift
+//  CategoriView.swift
 //  SearchWordsApp
 //
 //  Created by Isabella Heidari on 2025-12-27.
@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-struct CategoryView: View {
+struct CategoriView: View {
     
     let sourceLanguage: String
     let targetLanguage: String
     
     @State private var searchText: String = ""
+    
+    @State private var title: String = "Kategorier"
+    @State private var categoriesText: [String] = ["JURIDIK", "SJUKVÅRD", "MIGRATION", "SAMHÄLLE"]
     
     var body: some View {
         NavigationStack {
@@ -61,8 +64,7 @@ struct CategoryView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.green, .green)
                                     .frame(width: 80, height: 80)
-                                Text("JURIDIK")
-                            }
+                                Text(categoriesText.indices.contains(0) ? categoriesText[0] : "JURIDIK")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)
                             .overlay(
@@ -77,7 +79,7 @@ struct CategoryView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.green, .green)
                                     .frame(width: 80, height: 80)
-                                Text("SJUKVÅRD")
+                                Text(categoriesText.indices.contains(1) ? categoriesText[1] : "SJUKVÅRD")
                             }
                             .padding(12)
                             .frame(width: 150, height: 180)
@@ -96,7 +98,7 @@ struct CategoryView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.green, .green)
                                     .frame(width: 80, height: 80)
-                                Text("MIGRATION")
+                                Text(categoriesText.indices.contains(2) ? categoriesText[2] : "MIGRATION")
                             }
                             .padding(12)
                             .frame(width: 150, height: 180)
@@ -111,8 +113,7 @@ struct CategoryView: View {
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.green, .green)
                                     .frame(width: 80, height: 80)
-                                Text("SAMHÄLLE")
-                            }
+                                Text(categoriesText.indices.contains(3) ? categoriesText[3] : "SAMHÄLLE")                            }
                             .padding(12)
                             .frame(width: 150, height: 180)
                             .overlay(
@@ -126,12 +127,12 @@ struct CategoryView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Kategorier")
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    CategoryView(sourceLanguage: "Svenska", targetLanguage: "Engelska")
+    CategoriView(sourceLanguage: "Svenska", targetLanguage: "Engelska")
 }
