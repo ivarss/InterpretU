@@ -7,10 +7,22 @@
 
 import SwiftUI
 
+struct CategoryItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let icon: String
+}
+
 struct CategoryView: View {
     
     let sourceLanguage: String
     let targetLanguage: String
+    let categories: [CategoryItem] = [
+        CategoryItem(title: "JURIDIK", icon: "building.columns"),
+        CategoryItem(title: "SJUKVÅRD", icon: "heart.circle"),
+        CategoryItem(title: "MIGRATION", icon: "globe.europe.africa.fill"),
+        CategoryItem(title: "SAMHÄLLE", icon: "person.3")
+    ]
     
     @State private var searchText: String = ""
     
@@ -51,76 +63,27 @@ struct CategoryView: View {
                     .padding(.horizontal)
                     
                     // Categories grid-like layout
-                    VStack(spacing: 24) {
-                        // Row 1: Juridik & Sjukvård
-                        HStack(spacing: 30) {
-                            // Juridik
+                    LazyVGrid(columns: [
+                        GridItem(.flexible(), spacing: 30),
+                        GridItem(.flexible(), spacing: 30)
+                    ], spacing: 24) {
+                        ForEach(categories, id: \.id) { category in
                             VStack {
-                                Image(systemName: "building.columns")
+                                Image(systemName: category.icon)
                                     .resizable()
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(.green, .green)
                                     .frame(width: 80, height: 80)
-                                Text("JURIDIK")
+                                Text(category.title)
                             }
+                            .font(.title2)
                             .padding(12)
-                            .frame(width: 150, height: 180)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            
-                            // Sjukvård
-                            VStack {
-                                Image(systemName: "heart.circle")
-                                    .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
-                                Text("SJUKVÅRD")
-                            }
-                            .padding(12)
-                            .frame(width: 150, height: 180)
+                            .frame(maxWidth: .infinity, minHeight: 180)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray, lineWidth: 1)
                             )
                         }
-                        .font(.title2)
-                        
-                        // Row 2: Migration & Samhälle
-                        HStack(spacing: 30) {
-                            VStack {
-                                Image(systemName: "globe.europe.africa.fill")
-                                    .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
-                                Text("MIGRATION")
-                            }
-                            .padding(12)
-                            .frame(width: 150, height: 180)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            
-                            VStack {
-                                Image(systemName: "person.3")
-                                    .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
-                                Text("SAMHÄLLE")
-                            }
-                            .padding(12)
-                            .frame(width: 150, height: 180)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                        }
-                        .font(.title2)
                     }
                     .padding(.horizontal)
                 }

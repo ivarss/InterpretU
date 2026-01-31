@@ -12,7 +12,7 @@ import SwiftUI
 
 
 
-let languages = ["English 🇬🇧", "Español 🇪🇸", "Castellaño 🇵🇪", "Svenska 🇸🇪", "Soomaali 🇸🇴"]
+let languages = ["English 🇬🇧", "Español 🇪🇸", "Svenska 🇸🇪", "Soomaali 🇸🇴"]
 
 struct FirstView: View {
     @State private var sourceLanguage: String = ""
