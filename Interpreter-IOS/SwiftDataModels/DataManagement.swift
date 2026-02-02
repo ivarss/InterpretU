@@ -9,61 +9,112 @@ import Foundation
 import Playgrounds
 import SwiftData
 
-/*
- Parses the ExampleWords.csv and populates the passed Model Container in order to display data in memory for any ContentView macro's
- 
- :param:    context     The model container passed from the initial location.
- 
- */
-///  Parses the ExampleWords.csv and populates the passed Model Container with the example words in order to display data in memory for any ContentView macro's
-/// - Parameter context: The model Container you pass that only stores data in memory.
-func populateExamples(context: ModelContext) {
-    if let ExWords = Bundle.main.path(forResource: "ExampleWords", ofType: "csv") {
-        do {
-            /// Loads the .csv file and tries to parse it into a string
-            let contents = try String(contentsOfFile: ExWords)
-            /// Row is an array which separates the full string by new line and stores this as individual indexes in its array
-            let rows = contents.components(separatedBy: .newlines).filter { !$0.isEmpty }
-            /// columns only store the extra primary key of each column (ES, SV, MainWord) in order to use it later when creating the translation objects.
-            var columns = [String]()
-            /// Iterates through row and splits them by comma then when index is 0 it saves this the current data into the Column Variable
-            for (index,row) in rows.enumerated() {
-                let words = row.split(separator: ",")
-                
-                if index == 0 {
-                    columns = words.map { String($0) }
-                    continue
-                }
-                
-                /// Creates the MainWord object for the current word,
-                ///     words[0] = MainWord Key
-                ///     words[1] = Category String
-                ///     Translation is passed an empty array at this point since the translated words are yet to be created.
-                ///     words[2] and onwards is the translated word
-                ///     
-                var main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
-                context.insert(main)
-                // Create the Translated Word temporary object
-                var tWords = [Word]()
-                // creates the translated words into the above object array.
-                for colIndex in 2..<words.count {
-                    let tw = Word(mWord: main, lang: columns[colIndex], tranText: String(words[colIndex]))
-                    context.insert(tw)
-                    tWords.append(tw)
-                }
-                main.translation = tWords
-                // Saved each MainWord and its translations to the context Model Container
-            }
+
+class DataManagement {
+    /*
+     Parses the ExampleWords.csv and populates the passed Model Container in order to display data in memory for any ContentView macro's
+     
+     :param:    context     The model container passed from the initial location.
+     
+     */
+    ///  Parses the ExampleWords.csv and populates the passed Model Container with the example words in order to display data in memory for any ContentView macro's
+    /// - Parameter context: The model Container you pass that only stores data in memory.
+    func populateExamples(context: ModelContext) {
+        if let ExWords = Bundle.main.path(forResource: "ExampleWords", ofType: "csv") {
             do {
-                try context.save()
+                /// Loads the .csv file and tries to parse it into a string
+                let contents = try String(contentsOfFile: ExWords)
+                /// Row is an array which separates the full string by new line and stores this as individual indexes in its array
+                let rows = contents.components(separatedBy: .newlines).filter { !$0.isEmpty }
+                /// columns only store the extra primary key of each column (ES, SV, MainWord) in order to use it later when creating the translation objects.
+                var columns = [String]()
+                /// Iterates through row and splits them by comma then when index is 0 it saves this the current data into the Column Variable
+                for (index,row) in rows.enumerated() {
+                    let words = row.split(separator: ",")
+                    
+                    if index == 0 {
+                        columns = words.map { String($0) }
+                        continue
+                    }
+                    
+                    /// Creates the MainWord object for the current word,
+                    ///     words[0] = MainWord Key
+                    ///     words[1] = Category String
+                    ///     Translation is passed an empty array at this point since the translated words are yet to be created.
+                    ///     words[2] and onwards is the translated word
+                    ///
+                    var main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
+                    context.insert(main)
+                    // Create the Translated Word temporary object
+                    var tWords = [Word]()
+                    // creates the translated words into the above object array.
+                    for colIndex in 2..<words.count {
+                        let tw = Word(mWord: main, lang: columns[colIndex], tranText: String(words[colIndex]))
+                        context.insert(tw)
+                        tWords.append(tw)
+                    }
+                    main.translation = tWords
+                    // Saved each MainWord and its translations to the context Model Container
+                }
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to save populated examples: \(error)")
+                }
+                
             } catch {
-                print("Failed to save populated examples: \(error)")
+                // contents could not be loaded
             }
-            
-        } catch {
-            // contents could not be loaded
+        } else {
+            // example.txt not found!
         }
-    } else {
-        // example.txt not found!
     }
+    
+    
+    private func exampleData(context: ModelContext) {
+
+        let word1 = ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo"]
+        let word2 = ["Genome", "Medical", "Arvmassa", "Genoma"]
+        let word3 = ["Crown", "Medical", "Hjässa", "Coronilla"]
+        let word4 = ["Secretion", "Medical", "Utsöndring", "Secreción"]
+        let word5 = ["EyeHole", "Medical", "Ögonhåla", "Órbita"]
+        let word6 = ["Regime", "Municipality", "Statsskick", "Régimen"]
+        let word7 = ["Government", "Municipality", "Regering", "Gobierno"]
+        let word8 = ["County", "Municipality", "Län", "Provincia"]
+        let word9 = ["Representative", "Municipality", "Ombud", "Representante"]
+        let word10 = ["Welfare", "Municipality", "Välfärd", "Bienestar"]
+        let word11 = ["Internally displaced person", "Migration", "Internflykting", "Desplazado interno"]
+        let word12 = ["Processing", "Migration", "Handläggning", "Tramitación"]
+        let word13 = ["Residence permit", "Migration", "Uppehållstillstånd", "Permiso de residencia"]
+        let word14 = ["Stateless", "Migration", "Statslös", "Apátrida"]
+        let word15 = ["Custody", "Migration", "Förvar", "Custodia"]
+        let word16 = ["Precedent", "Law", "Prejudikat", "Precedente"]
+        let word17 = ["Compensation", "Law", "Skadestånd", "Indemnización"]
+        let word18 = ["Plaintiff", "Law", "Målsägande", "Demandante"]
+        let word19 = ["Defendant", "Law", "Tilltalad", "Acusado"]
+        let word20 = ["Legislation", "Law", "Lagstiftning", "Legislación"]
+        
+        for i in 1...20 {
+            let mWord = 0
+            let Cat = 1
+            let SV = 2
+            let ES = 3
+            
+            
+            var main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
+            
+        }
+        
+
+    }
+    static func getExampleContainer() -> ModelContainer{
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: PIAPlace.self, configurations: config)
+
+        container.mainContext.insert(getExamplePlace())
+        container.mainContext.insert(getExamplePlace2())
+
+        return container
+    }
+    
 }
