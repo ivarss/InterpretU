@@ -1,5 +1,5 @@
 //
-//  FirstPage.swift
+//  FirstView.swift
 //  SearchWordsApp
 //
 //  Created by Isabella Heidari on 2026-01-07.
@@ -17,6 +17,18 @@ let languages = ["English 🇬🇧", "Español 🇪🇸", "Svenska 🇸🇪", "S
 struct FirstView: View {
     @State private var sourceLanguage: String = ""
     @State private var targetLanguage: String = ""
+    
+    
+    @State private var title: String = "Välj språk"
+    @State private var subtitle: String = "Välj ditt språk och språket du översätter till"
+    @State private var translateFrom: String = "Översätt från"
+    @State private var translateTo: String = "Översätt till"
+    @State private var LanguageSelectText: String = "Välj språk..."
+    @State private var buttonText: String = "Fortsätt"
+
+    
+    
+    
     private var isContinueDisabled : Bool {
         sourceLanguage == "" || targetLanguage == ""
         || sourceLanguage == targetLanguage
@@ -29,14 +41,14 @@ struct FirstView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 180, height: 180)
-                Text("Välj språk")
+                Text(title)
                     .font(Font.title)
                 
-                Text("Välj ditt språk och språket du översätter till")
+                Text(subtitle)
                     .font(.title2)
                     .padding()
                 
-                Text("Översätt från")
+                Text(translateFrom)
                     .padding(.leading, 60)
                     .padding(.top, 60)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -49,7 +61,7 @@ struct FirstView: View {
                     }
                 } label: {
                     HStack {
-                        Text(sourceLanguage == "" ? "Välj språk..." : sourceLanguage)
+                        Text(sourceLanguage.isEmpty ? LanguageSelectText : sourceLanguage)
                             .foregroundColor(sourceLanguage == "" ? .gray : .primary)
                         
                         Spacer()
@@ -63,7 +75,7 @@ struct FirstView: View {
                 }
                 .padding()
                 
-                Text("Översätt till")
+                Text(translateTo)
                     .padding(.leading, 60)
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -76,7 +88,7 @@ struct FirstView: View {
                     }
                 } label: {
                     HStack {
-                        Text(targetLanguage == "" ? "Välj språk...": targetLanguage)
+                        Text(targetLanguage.isEmpty ? LanguageSelectText : targetLanguage)
                             .foregroundColor(targetLanguage == "" ? .gray : .primary)
                         
                         Spacer()
@@ -90,8 +102,8 @@ struct FirstView: View {
                 }
                 .padding()
                 
-                NavigationLink(destination:CategoryView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
-                    Text("Fortsätt")
+                NavigationLink(destination:CategoriView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
+                    Text(buttonText)
                         .padding(20)
                         .foregroundColor(.white)
                         .background(isContinueDisabled ? Color.gray : Color.green)
@@ -108,5 +120,3 @@ struct FirstView: View {
 #Preview {
     FirstView()
 }
-
-
