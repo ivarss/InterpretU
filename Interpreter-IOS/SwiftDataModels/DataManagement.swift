@@ -43,7 +43,7 @@ class DataManagement {
                     ///     Translation is passed an empty array at this point since the translated words are yet to be created.
                     ///     words[2] and onwards is the translated word
                     ///
-                    var main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
+                    let main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
                     context.insert(main)
                     // Create the Translated Word temporary object
                     var tWords = [Word]()
@@ -72,49 +72,64 @@ class DataManagement {
     
     
     private func exampleData(context: ModelContext) {
-
-        let word1 = ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo"]
-        let word2 = ["Genome", "Medical", "Arvmassa", "Genoma"]
-        let word3 = ["Crown", "Medical", "Hjässa", "Coronilla"]
-        let word4 = ["Secretion", "Medical", "Utsöndring", "Secreción"]
-        let word5 = ["EyeHole", "Medical", "Ögonhåla", "Órbita"]
-        let word6 = ["Regime", "Municipality", "Statsskick", "Régimen"]
-        let word7 = ["Government", "Municipality", "Regering", "Gobierno"]
-        let word8 = ["County", "Municipality", "Län", "Provincia"]
-        let word9 = ["Representative", "Municipality", "Ombud", "Representante"]
-        let word10 = ["Welfare", "Municipality", "Välfärd", "Bienestar"]
-        let word11 = ["Internally displaced person", "Migration", "Internflykting", "Desplazado interno"]
-        let word12 = ["Processing", "Migration", "Handläggning", "Tramitación"]
-        let word13 = ["Residence permit", "Migration", "Uppehållstillstånd", "Permiso de residencia"]
-        let word14 = ["Stateless", "Migration", "Statslös", "Apátrida"]
-        let word15 = ["Custody", "Migration", "Förvar", "Custodia"]
-        let word16 = ["Precedent", "Law", "Prejudikat", "Precedente"]
-        let word17 = ["Compensation", "Law", "Skadestånd", "Indemnización"]
-        let word18 = ["Plaintiff", "Law", "Målsägande", "Demandante"]
-        let word19 = ["Defendant", "Law", "Tilltalad", "Acusado"]
-        let word20 = ["Legislation", "Law", "Lagstiftning", "Legislación"]
+        let exWords: [[String]] = [
+            ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo"],
+            ["Genome", "Medical", "Arvmassa", "Genoma"],
+            ["Crown", "Medical", "Hjässa", "Coronilla"],
+            ["Secretion", "Medical", "Utsöndring", "Secreción"],
+            ["EyeHole", "Medical", "Ögonhåla", "Órbita"],
+            ["Regime", "Municipality", "Statsskick", "Régimen"],
+            ["Government", "Municipality", "Regering", "Gobierno"],
+            ["County", "Municipality", "Län", "Provincia"],
+            ["Representative", "Municipality", "Ombud", "Representante"],
+            ["Welfare", "Municipality", "Välfärd", "Bienestar"],
+            ["Internally displaced person", "Migration", "Internflykting", "Desplazado interno"],
+            ["Processing", "Migration", "Handläggning", "Tramitación"],
+            ["Residence permit", "Migration", "Uppehållstillstånd", "Permiso de residencia"],
+            ["Stateless", "Migration", "Statslös", "Apátrida"],
+            ["Custody", "Migration", "Förvar", "Custodia"],
+            ["Precedent", "Law", "Prejudikat", "Precedente"],
+            ["Compensation", "Law", "Skadestånd", "Indemnización"],
+            ["Plaintiff", "Law", "Målsägande", "Demandante"],
+            ["Defendant", "Law", "Tilltalad", "Acusado"],
+            ["Legislation", "Law", "Lagstiftning", "Legislación"],
+        ]
         
-        for i in 1...20 {
-            let mWord = 0
-            let Cat = 1
-            let SV = 2
-            let ES = 3
+        
+        for word in exWords {
+            /// mWord = 0
+            /// Cat = 1
+            /// SV = 2
+            /// ES = 3
             
+            let main = MainWord(wordKey: String(word[0]), cat: String(word[1]), translation: [])
+            context.insert(main)
             
-            var main = MainWord(wordKey: String(words[0]), cat: String(words[1]), translation: [])
+            var tWords = [Word]()
+            // creates the translated words into the above object array.
             
+            let sv = Word(mWord: main, lang: "SV", tranText: String(word[2]))
+            let es = Word(mWord: main, lang: "ES", tranText: String(word[3]))
+            
+            tWords.append(sv)
+            tWords.append(es)
+            
+            main.translation = tWords
+        }
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save populated examples: \(error)")
         }
         
 
     }
     static func getExampleContainer() -> ModelContainer{
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try! ModelContainer(for: PIAPlace.self, configurations: config)
+        let container = try! ModelContainer(for: MainWord.self, Word.self, configurations: config)
 
-        container.mainContext.insert(getExamplePlace())
-        container.mainContext.insert(getExamplePlace2())
-
+        DataManagement().exampleData(context: container.mainContext)
+        
         return container
     }
-    
 }
