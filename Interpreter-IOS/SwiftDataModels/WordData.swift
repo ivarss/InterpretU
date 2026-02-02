@@ -12,14 +12,12 @@ import SwiftData
 final class MainWord {
     var wordKey : String
     var cat: String
-    var isFavorite: Bool = false
     @Relationship(deleteRule: .cascade) var translation = [Word]()
     
     init(wordKey: String, cat: String, translation: [Word] = []) {
         self.wordKey = wordKey
         self.cat = cat
         self.translation = translation
-        self.isFavorite = isFavorite
     }
 }
 
@@ -34,7 +32,6 @@ final class Word {
         self.mWord = mWord
         self.lang = lang
         self.tranText = tranText
-    
     }
 }
 /* Data Model for categories if we decide that we want to utilize it as a object rather than the current choice which is a simple string
