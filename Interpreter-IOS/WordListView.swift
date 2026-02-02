@@ -40,6 +40,10 @@ struct WordListView: View {
                 ForEach(filteredWords) { mainWord in
                     WordRowView(mainWord: mainWord) 
                 }
+                
+        
+                
+                
 
             }
             .navigationTitle("Ord Lista")
@@ -48,8 +52,8 @@ struct WordListView: View {
                     placement: .automatic,
                     prompt: "Sök ord eller översättning")
     }
+    
 }
-
 
 @MainActor
 let previewContainer: ModelContainer = {
