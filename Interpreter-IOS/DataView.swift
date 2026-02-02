@@ -56,19 +56,8 @@ struct DataView: View {
 }
 
 #Preview {
-      do {
-          let config = ModelConfiguration(isStoredInMemoryOnly: true)
-          // Include all SwiftData models used by your view or populate function
-          let container = try ModelContainer(for: MainWord.self, Word.self, configurations: config)
-
-          let context = ModelContext(container)
-          // This must be implemented to insert into SwiftData using the given context
-          populateExamples(context: context)
-
-          return DataView()
-              .modelContainer(container)
-      } catch {
-          fatalError("Failed to create in-memory container: \(error)")
-      }
-  }
+    
+    return DataView()
+        .modelContainer(DataManagement.getExampleContainer())
+}
 
