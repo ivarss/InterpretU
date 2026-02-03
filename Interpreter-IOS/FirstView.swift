@@ -37,7 +37,7 @@ struct FirstView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                Image("framsidebildApp")
+                Image("EarthGlobe")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 180, height: 180)
