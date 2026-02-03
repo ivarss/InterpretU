@@ -18,83 +18,115 @@ struct CategoryView: View {
     let sourceLanguage: String
     let targetLanguage: String
     let categories: [CategoryItem] = [
-        CategoryItem(title: "JURIDIK", icon: "building.columns"),
-        CategoryItem(title: "SJUKVÅRD", icon: "heart.circle"),
+        CategoryItem(title: "LAW", icon: "building.columns"),
+        CategoryItem(title: "HEALTHCARE", icon: "heart.circle"),
         CategoryItem(title: "MIGRATION", icon: "globe.europe.africa.fill"),
-        CategoryItem(title: "SAMHÄLLE", icon: "person.3")
+        CategoryItem(title: "SOCIETY", icon: "person.3")
     ]
     
     @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    // Header with languages and arrow
-                    VStack {
-                        HStack {
-                            Text(sourceLanguage)
-                            Spacer()
-                            Image(systemName: "arrow.right.circle.fill")
-                                .resizable()
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .green)
-                                .frame(width: 50, height: 50)
-                            Spacer()
-                            Text(targetLanguage)
-                        }
-                        .padding(.horizontal, 50)
-                    }
-                    
-                    // Search bar
-                    HStack {
-                        Image(systemName: "line.3.horizontal.decrease")
-                            .foregroundColor(.gray)
-                        
-                        TextField("Sök ord...", text: $searchText)
-                            .multilineTextAlignment(.center)
-                        
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(20)
-                    .background(Color.green.opacity(0.3))
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .padding(.horizontal)
-                    
-                    // Categories grid-like layout
-                    LazyVGrid(columns: [
-                        GridItem(.flexible(), spacing: 30),
-                        GridItem(.flexible(), spacing: 30)
-                    ], spacing: 24) {
-                        ForEach(categories, id: \.id) { category in
-                            VStack {
-                                Image(systemName: category.icon)
+            ZStack{
+                Color(.systemGray5).ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 16) {
+                        // Header with languages and arrow
+                        VStack {
+                            HStack {
+                                Text(sourceLanguage)
+                                Spacer()
+                                Image(systemName: "arrow.right.circle.fill")
                                     .resizable()
                                     .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
-                                Text(category.title)
+                                    .foregroundStyle(.white, Color(red: 0.0, green: 0.55, blue: 0.25))
+                                    .frame(width: 50, height: 50)
+                                Spacer()
+                                Text(targetLanguage)
                             }
-                            .font(.title2)
-                            .padding(12)
-                            .frame(maxWidth: .infinity, minHeight: 180)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
+                            .padding(.horizontal, 50)
                         }
+                        
+                        // Search bar
+                        HStack {
+                            Image(systemName: "line.3.horizontal.decrease")
+                            
+                            
+                            
+                            TextField("Search word...", text: $searchText)
+                                .multilineTextAlignment(.center)
+                            
+                            Image(systemName: "magnifyingglass")
+                            
+                        }
+                        .padding(20)
+                        .background(Color.green.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .padding(.horizontal)
+                        
+                        
+                        // Categories grid-like layout
+                        LazyVGrid(columns:
+                                    [
+                                        GridItem(.flexible(), spacing: 30),
+                                        GridItem(.flexible(), spacing: 30)
+                                    ], spacing: 24)
+                        {
+                            
+                            
+                            
+                            ForEach(categories, id: \.id) { category in
+                                VStack {
+                                    
+                                    
+                                    Image(systemName: category.icon)
+                                        .resizable()
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(
+                                            Color(red: 0.0, green: 0.55, blue: 0.25),   // primär (mörkare grön)
+                                            Color(red: 0.0, green: 0.55, blue: 0.25)    // sekundär (samma ton)
+                                        )
+                                        .scaledToFit()
+                                        .frame(width: 60, height: 60)
+                                        .padding(16)
+                                        .background(
+                                            Circle()
+                                                .fill(Color.green.opacity(0.2)) //grön färg i cirkeln
+                                                .overlay(
+                                                    Circle()
+                                                        .stroke(Color.gray, lineWidth: 1)
+                                                )
+                                        )  //linje runt cirkel
+                                    
+                                    Text(category.title)
+                                }
+                                
+                                
+                                .font(.title2)
+                                .padding(12)
+                                .frame(maxWidth: .infinity, minHeight: 210)
+                                .background(RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                            }
+                        }
+                        .padding(.top, 30)
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
+                .scrollContentBackground(.hidden)
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .navigationTitle("Kategorier")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    CategoryView(sourceLanguage: "Svenska", targetLanguage: "Engelska")
+    CategoryView(sourceLanguage: "English", targetLanguage: "Svenska")
 }
