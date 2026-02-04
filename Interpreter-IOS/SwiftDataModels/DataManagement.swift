@@ -19,8 +19,8 @@ class DataManagement {
      */
     ///  Parses the ExampleWords.csv and populates the passed Model Container with the example words in order to display data in memory for any ContentView macro's
     /// - Parameter context: The model Container you pass that only stores data in memory.
-    func populateExamples(context: ModelContext) {
-        if let ExWords = Bundle.main.path(forResource: "ExampleWords", ofType: "csv") {
+    func populateData(context: ModelContext) {
+        if let ExWords = Bundle.main.path(forResource: "LiveWords", ofType: "csv") {
             do {
                 /// Loads the .csv file and tries to parse it into a string
                 let contents = try String(contentsOfFile: ExWords)
@@ -50,7 +50,6 @@ class DataManagement {
                     // creates the translated words into the above object array.
                     for colIndex in 2..<words.count {
                         let tw = Word(mWord: main, lang: columns[colIndex], tranText: String(words[colIndex]))
-                        context.insert(tw)
                         tWords.append(tw)
                     }
                     main.translation = tWords
