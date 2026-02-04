@@ -12,12 +12,14 @@ import SwiftData
 final class MainWord {
     var wordKey : String
     var cat: String
+    var isFavorite: Bool
     @Relationship(deleteRule: .cascade) var translation = [Word]()
     
     init(wordKey: String, cat: String, translation: [Word] = []) {
         self.wordKey = wordKey
         self.cat = cat
         self.translation = translation
+        self.isFavorite = false
     }
 }
 

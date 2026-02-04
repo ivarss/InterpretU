@@ -102,7 +102,7 @@ struct FirstView: View {
                 }
                 .padding()
                 
-                NavigationLink(destination:CategoriView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
+                NavigationLink(destination:CategoryView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
                     Text(buttonText)
                         .padding(20)
                         .foregroundColor(.white)
