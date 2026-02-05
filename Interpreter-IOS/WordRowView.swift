@@ -41,9 +41,9 @@ struct WordRowView: View {
     }
 }
 
-
 /*
  #Preview {
  WordRowView()
+         .modelContainer(DataManagement.getExampleContainer())
  }
  */

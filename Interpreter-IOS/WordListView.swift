@@ -55,33 +55,7 @@ struct WordListView: View {
     
 }
 
-@MainActor
-let previewContainer: ModelContainer = {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: MainWord.self, Word.self,
-                                        configurations: config)
-
-    let context = container.mainContext
-
-    let heart = MainWord(wordKey: "heart", cat: "Medical")
-    let hjärta   = Word(mWord: heart, lang: "sv", tranText: "hjärta")
-    heart.translation = [hjärta]
-    context.insert(heart)
-    
-    let brain = MainWord(wordKey: "brain", cat: "Medical")
-    let hjärna   = Word(mWord: brain, lang: "sv", tranText: "hjärna")
-    brain.translation = [hjärna]
-    context.insert(brain)
-    
-    let kidney = MainWord(wordKey: "kidney", cat: "Medical")
-    let njure   = Word(mWord: kidney, lang: "sv", tranText: "njure")
-    kidney.translation = [njure]
-    context.insert(kidney)
-
-    return container
-}()
-
 #Preview {
     WordListView()
-        .modelContainer(previewContainer)
+        .modelContainer(DataManagement.getExampleContainer())
 }

@@ -8,16 +8,47 @@
 
 import SwiftUI
 import SwiftData
+import ToastKit
 
 /// The SwiftUI view to view all the data passed into swiftdata.
 struct DataView: View {
     @Environment(\.modelContext) var modelContext
     @Query var mainWords: [MainWord]
+    let dataMan = DataManagement()
+    
     var body: some View {
         // TODO: Make a button to manually add live data from csv file.
         // TODO: Make a button to manually delete current live data.
         // TODO: Navigation to this screen from somewhere in our live project.
         // TODO: Make the UI cleaner, add Frame limits to each section so they seperate nicely.
+        
+        NavigationStack() {
+            Text("Manage the Swiftdata storage")
+                .navigationTitle("Data View")
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            dataMan.populateData(context: modelContext)
+                            ToastKit.present(message: "Added Live-Data", color: Color.yellow) // Step 2
+                        }, label: {
+                                    Text("Add Data")
+                                })
+                                .onAppear {
+                                    ToastKit.configure(type: .liquid) // Step 1
+                                }
+                            }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            dataMan.deleteData(context: modelContext)
+                            ToastKit.present(message: "Deleted all Live-Data", color: Color.yellow) // Step 2
+                                }, label: {
+                                    Text("Delete Data")
+                                })
+                                .onAppear {
+                                    ToastKit.configure(type: .liquid) // Step 1
+                                }
+                            }
+                        }
         
         // List to display all the Main words we have and each of their translated words and the languages for it.
         List {
@@ -52,23 +83,12 @@ struct DataView: View {
                 }
             }
         }
+        }
     }
 }
 
 #Preview {
-      do {
-          let config = ModelConfiguration(isStoredInMemoryOnly: true)
-          // Include all SwiftData models used by your view or populate function
-          let container = try ModelContainer(for: MainWord.self, Word.self, configurations: config)
-
-          let context = ModelContext(container)
-          // This must be implemented to insert into SwiftData using the given context
-          populateExamples(context: context)
-
-          return DataView()
-              .modelContainer(container)
-      } catch {
-          fatalError("Failed to create in-memory container: \(error)")
-      }
-  }
+    return DataView()
+        .modelContainer(DataManagement.getExampleContainer())
+}
 

@@ -32,4 +32,5 @@ struct FavoriteView: View {
 
 #Preview {
     FavoriteView()
+        .modelContainer(DataManagement.getExampleContainer())
 }

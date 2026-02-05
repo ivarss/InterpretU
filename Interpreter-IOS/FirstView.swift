@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import SwiftData
 
 
 
@@ -37,10 +38,19 @@ struct FirstView: View {
     var body: some View {
         NavigationStack{
             VStack {
+                Text("")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NavigationLink(destination: { DataView() }) {
+                                Label("Add Data", systemImage: "plus")
+                            }
+                        }
+                    }
                 Image("EarthGlobe")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 180, height: 180)
+        
                 Text(title)
                     .font(Font.title)
                 
@@ -113,10 +123,13 @@ struct FirstView: View {
                 }.disabled(isContinueDisabled)
                 
             }
-        }}
+        }
+    }
 }
 
 
 #Preview {
     FirstView()
+        .modelContainer(DataManagement.getExampleContainer())
 }
+

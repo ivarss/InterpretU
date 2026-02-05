@@ -15,11 +15,11 @@ final class MainWord {
     var isFavorite: Bool
     @Relationship(deleteRule: .cascade) var translation = [Word]()
     
-    init(wordKey: String, cat: String, translation: [Word] = []) {
+    init(wordKey: String, cat: String, translation: [Word] = [], favInit: Bool = false) {
         self.wordKey = wordKey
         self.cat = cat
         self.translation = translation
-        self.isFavorite = false
+        self.isFavorite = favInit
     }
 }
 

@@ -1,0 +1,24 @@
+{
+  "originHash" : "52def54b1c0df37e48514db90da788656a742c8dada1ba22e373c3341249a508",
+  "pins" : [
+    {
+      "identity" : "popups",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Mijick/Popups.git",
+      "state" : {
+        "revision" : "3aa55233eda7bbcbd98b52a6f63d5a7e1955189a",
+        "version" : "4.0.5"
+      }
+    },
+    {
+      "identity" : "toastkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desp0o/ToastKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "27b97664873141e04766bb0e527d76e0f12bc0d6"
+      }
+    }
+  ],
+  "version" : 3
+}
