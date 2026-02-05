@@ -14,6 +14,8 @@ import ToastKit
 struct DataView: View {
     @Environment(\.modelContext) var modelContext
     @Query var mainWords: [MainWord]
+    let dataMan = DataManagement()
+    
     var body: some View {
         // TODO: Make a button to manually add live data from csv file.
         // TODO: Make a button to manually delete current live data.
@@ -26,8 +28,9 @@ struct DataView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button(action: {
-                                    ToastKit.present(message: "Added Live-Data", color: Color.yellow) // Step 2
-                                }, label: {
+                            dataMan.populateData(context: modelContext)
+                            ToastKit.present(message: "Added Live-Data", color: Color.yellow) // Step 2
+                        }, label: {
                                     Text("Add Data")
                                 })
                                 .onAppear {
@@ -36,7 +39,8 @@ struct DataView: View {
                             }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
-                                    ToastKit.present(message: "Deleted all Live-Data", color: Color.yellow) // Step 2
+                            dataMan.deleteData(context: modelContext)
+                            ToastKit.present(message: "Deleted all Live-Data", color: Color.yellow) // Step 2
                                 }, label: {
                                     Text("Delete Data")
                                 })

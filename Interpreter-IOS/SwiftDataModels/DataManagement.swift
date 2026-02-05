@@ -68,6 +68,14 @@ class DataManagement {
             // example.txt not found!
         }
     }
+
+    func deleteData(context: ModelContext) {
+        do {
+            try context.delete(model: MainWord.self)
+        } catch {
+            print("Failed to empty container")
+        }
+    }
     
     
     private func exampleData(context: ModelContext) {
