@@ -27,8 +27,8 @@ struct CategoryView: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationStack {
             ScrollView {
+                Text("Kategorier")
                 VStack(spacing: 16) {
                     // Header with languages and arrow
                     VStack {
@@ -103,11 +103,9 @@ struct CategoryView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Kategorier")
-            .navigationBarTitleDisplayMode(.inline)
+           
         }
     }
-}
 
 #Preview {
     CategoryView(sourceLanguage: "Svenska", targetLanguage: "Engelska")

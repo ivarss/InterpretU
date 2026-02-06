@@ -51,8 +51,8 @@ struct WordListView: View {
     
 
     var body: some View {
-        NavigationStack {
-            
+        
+        Text("Ordlistan")
             List {
                 ForEach(filteredWords) { word in
                     WordRowView(
@@ -65,8 +65,7 @@ struct WordListView: View {
             }
 
             
-            .navigationTitle(category)
-        }
+          
         .searchable(text: $searchText,
                     placement: .automatic,
                     prompt: "Sök ord eller översättning")
@@ -79,7 +78,7 @@ struct WordListView: View {
     WordListView(
         category: "MIGRATION",
         sourceLanguage: "Svenska",
-        targetLanguage: "Engelska"
+        targetLanguage: "English"
     )
     .modelContainer(DataManagement.getExampleContainer())
 }

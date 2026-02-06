@@ -25,7 +25,6 @@ struct FavoriteView: View {
 
 
     var body: some View {
-        NavigationStack {
             List {
                 ForEach(favoriteWords) { mainWord in
                     WordRowView(
@@ -36,9 +35,7 @@ struct FavoriteView: View {
                 }
 
                 }
-            }
-            .navigationTitle("Favoriter")
-            .searchable(text: .constant(""))  // kan lägga till sök här också
+.searchable(text: .constant(""))  // kan lägga till sök här också
         }
     }
 
@@ -48,7 +45,7 @@ struct FavoriteView: View {
 #Preview {
     FavoriteView(
         sourceLanguage: "Svenska",
-        targetLanguage: "Engelska"
+        targetLanguage: "English"
     )
     .modelContainer(DataManagement.getExampleContainer())
 }
