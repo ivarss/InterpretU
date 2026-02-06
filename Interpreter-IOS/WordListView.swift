@@ -11,42 +11,61 @@ import SwiftData
 
 struct WordListView: View {
     @Environment(\.modelContext) var modelContext
+    let category: String
+       let sourceLanguage: String
+       let targetLanguage: String
     @Query var mainWords: [MainWord]
 
     @State private var searchText = ""
 
     // Filtrerad lista baserat på söktext
     var filteredWords: [MainWord] {
-        if searchText.isEmpty {
-            return mainWords
-        } else {
-            return mainWords.filter { mainWord in
-                // sök i huvudordet OCH i alla översättningar
-                let matchKey = mainWord.wordKey
-                    .localizedCaseInsensitiveContains(searchText)
+        mainWords.filter { word in
 
-                let matchTranslations = mainWord.translation.contains { tran in
-                    tran.tranText.localizedCaseInsensitiveContains(searchText)
-                }
+            // 1. rätt kategori
+            guard word.cat == category else { return false }
 
-                return matchKey || matchTranslations
+            // 2. måste ha båda språken
+            let hasSource = word.translation.contains {
+                $0.lang == sourceLanguage
             }
+
+            let hasTarget = word.translation.contains {
+                $0.lang == targetLanguage
+            }
+
+            guard hasSource && hasTarget else { return false }
+
+            // 3. sök
+            if searchText.isEmpty { return true }
+
+            return
+                word.wordKey.localizedCaseInsensitiveContains(searchText) ||
+                word.translation.contains {
+                    $0.tranText.localizedCaseInsensitiveContains(searchText)
+                }
         }
     }
+    
+    
+    
 
     var body: some View {
         NavigationStack {
+            
             List {
-                ForEach(filteredWords) { mainWord in
-                    WordRowView(mainWord: mainWord) 
+                ForEach(filteredWords) { word in
+                    WordRowView(
+                        mainWord: word,
+                        sourceLanguage: sourceLanguage,
+                        targetLanguage: targetLanguage
+                    )
+                    
                 }
-                
-        
-                
-                
-
             }
-            .navigationTitle("Ord Lista")
+
+            
+            .navigationTitle(category)
         }
         .searchable(text: $searchText,
                     placement: .automatic,
@@ -55,7 +74,13 @@ struct WordListView: View {
     
 }
 
+
 #Preview {
-    WordListView()
-        .modelContainer(DataManagement.getExampleContainer())
+    WordListView(
+        category: "MIGRATION",
+        sourceLanguage: "Svenska",
+        targetLanguage: "Engelska"
+    )
+    .modelContainer(DataManagement.getExampleContainer())
 }
+

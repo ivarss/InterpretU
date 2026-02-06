@@ -9,28 +9,47 @@ import SwiftUI
 import SwiftData
 
 struct FavoriteView: View {
-    @Query(sort: \MainWord.wordKey) var favoriteWords: [MainWord]
-    // Filtera automatiskt med predicate i @Query
-    init() {
-        _favoriteWords = Query(filter: #Predicate<MainWord> { $0.isFavorite })
+    let sourceLanguage: String
+    let targetLanguage: String
+    
+    @Query var favoriteWords: [MainWord]
+
+    init(sourceLanguage: String, targetLanguage: String) {
+        self.sourceLanguage = sourceLanguage
+        self.targetLanguage = targetLanguage
+
+        _favoriteWords = Query(
+            filter: #Predicate<MainWord> { $0.isFavorite }
+        )
     }
+
 
     var body: some View {
         NavigationStack {
             List {
                 ForEach(favoriteWords) { mainWord in
-                    WordRowView(mainWord: mainWord)
+                    WordRowView(
+                        mainWord: mainWord,
+                        sourceLanguage: sourceLanguage,
+                        targetLanguage: targetLanguage
+                    )
+                }
+
                 }
             }
             .navigationTitle("Favoriter")
             .searchable(text: .constant(""))  // kan lägga till sök här också
         }
     }
-}
+
 
 
 
 #Preview {
-    FavoriteView()
-        .modelContainer(DataManagement.getExampleContainer())
+    FavoriteView(
+        sourceLanguage: "Svenska",
+        targetLanguage: "Engelska"
+    )
+    .modelContainer(DataManagement.getExampleContainer())
 }
+

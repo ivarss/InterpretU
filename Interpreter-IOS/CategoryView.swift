@@ -67,23 +67,37 @@ struct CategoryView: View {
                         GridItem(.flexible(), spacing: 30),
                         GridItem(.flexible(), spacing: 30)
                     ], spacing: 24) {
-                        ForEach(categories, id: \.id) { category in
-                            VStack {
-                                Image(systemName: category.icon)
-                                    .resizable()
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.green, .green)
-                                    .frame(width: 80, height: 80)
-                                Text(category.title)
+                        
+                        
+                        ForEach(categories) { category in
+                            NavigationLink {
+                                WordListView(
+                                    category: category.title,
+                                    sourceLanguage: sourceLanguage,
+                                    targetLanguage: targetLanguage
+                                )
+                            } label: {
+                                VStack {
+                                    Image(systemName: category.icon)
+                                        .resizable()
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(.green, .green)
+                                        .frame(width: 80, height: 80)
+                                    Text(category.title)
+                                        . foregroundColor(.black)
+                                }
+                                .font(.title2)
+                                .padding(12)
+                                .frame(maxWidth: .infinity, minHeight: 180)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
                             }
-                            .font(.title2)
-                            .padding(12)
-                            .frame(maxWidth: .infinity, minHeight: 180)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
                         }
+
+                        
+                        
                     }
                     .padding(.horizontal)
                 }

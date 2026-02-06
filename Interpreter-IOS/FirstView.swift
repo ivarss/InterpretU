@@ -16,8 +16,8 @@ import SwiftData
 let languages = ["English 🇬🇧", "Español 🇪🇸", "Svenska 🇸🇪", "Soomaali 🇸🇴"]
 
 struct FirstView: View {
-    @State private var sourceLanguage: String = ""
-    @State private var targetLanguage: String = ""
+    @State var sourceLanguage: String = ""
+    @State var targetLanguage: String = ""
     
     
     @State private var title: String = "Välj språk"
