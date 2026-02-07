@@ -13,7 +13,7 @@ import SwiftData
 
 
 
-let languages = ["English 🇬🇧", "Español 🇪🇸", "Svenska 🇸🇪", "Soomaali 🇸🇴"]
+let languages = ["EN", "ES", "SV", "SO"]
 
 struct FirstView: View {
     @State private var sourceLanguage: String = ""

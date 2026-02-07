@@ -18,10 +18,10 @@ struct CategoryView: View {
     let sourceLanguage: String
     let targetLanguage: String
     let categories: [CategoryItem] = [
-        CategoryItem(title: "JURIDIK", icon: "building.columns"),
-        CategoryItem(title: "SJUKVÅRD", icon: "heart.circle"),
-        CategoryItem(title: "MIGRATION", icon: "globe.europe.africa.fill"),
-        CategoryItem(title: "SAMHÄLLE", icon: "person.3")
+        CategoryItem(title: "law", icon: "building.columns"),
+        CategoryItem(title: "Medical", icon: "heart.circle"),
+        CategoryItem(title: "Migration", icon: "globe.europe.africa.fill"),
+        CategoryItem(title: "Society", icon: "person.3")
     ]
     
     @State private var searchText: String = ""
@@ -108,5 +108,5 @@ struct CategoryView: View {
     }
 
 #Preview {
-    CategoryView(sourceLanguage: "Svenska", targetLanguage: "Engelska")
+    CategoryView(sourceLanguage: "SV", targetLanguage: "EN")
 }

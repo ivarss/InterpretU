@@ -12,74 +12,51 @@ import SwiftData
 struct WordListView: View {
     @Environment(\.modelContext) var modelContext
     let category: String
-       let sourceLanguage: String
-       let targetLanguage: String
+    let sourceLanguage: String
+    let targetLanguage: String
     @Query var mainWords: [MainWord]
 
-    @State private var searchText = ""
-
-    // Filtrerad lista baserat på söktext
+    // Filtrerad lista baserat på kategori och språk
     var filteredWords: [MainWord] {
         mainWords.filter { word in
+            // Normalize inputs for robust comparison
+            let normalizedCategory = category.trimmingCharacters(in: .whitespacesAndNewlines)
+            let wordCategory = word.cat.trimmingCharacters(in: .whitespacesAndNewlines)
 
-            // 1. rätt kategori
-            guard word.cat == category else { return false }
+            // 1. rätt kategori (skiftlägesokänslig)
+            guard wordCategory.caseInsensitiveCompare(normalizedCategory) == .orderedSame else { return false }
 
-            // 2. måste ha båda språken
-            let hasSource = word.translation.contains {
-                $0.lang == sourceLanguage
-            }
+            // 2. måste ha båda språken (normalisera till versaler)
+            let src = sourceLanguage.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            let tgt = targetLanguage.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
-            let hasTarget = word.translation.contains {
-                $0.lang == targetLanguage
-            }
+            let hasSource = word.translation.contains { $0.lang.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == src }
+            let hasTarget = word.translation.contains { $0.lang.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == tgt }
 
-            guard hasSource && hasTarget else { return false }
-
-            // 3. sök
-            if searchText.isEmpty { return true }
-
-            return
-                word.wordKey.localizedCaseInsensitiveContains(searchText) ||
-                word.translation.contains {
-                    $0.tranText.localizedCaseInsensitiveContains(searchText)
-                }
+            return hasSource && hasTarget
         }
     }
-    
-    
-    
 
     var body: some View {
-        
-        Text("Ordlistan")
-            List {
-                ForEach(filteredWords) { word in
-                    WordRowView(
-                        mainWord: word,
-                        sourceLanguage: sourceLanguage,
-                        targetLanguage: targetLanguage
-                    )
-                    
-                }
+        Text(category)
+        List {
+            ForEach(filteredWords) { mainWord in
+                WordRowView(
+                    mainWord: mainWord,
+                    sourceLanguage: sourceLanguage,
+                    targetLanguage: targetLanguage
+                )
             }
-
-            
-          
-        .searchable(text: $searchText,
-                    placement: .automatic,
-                    prompt: "Sök ord eller översättning")
+        }
     }
-    
 }
 
 
 #Preview {
     WordListView(
-        category: "MIGRATION",
-        sourceLanguage: "Svenska",
-        targetLanguage: "English"
+        category: "Migration",
+        sourceLanguage: "SV",
+        targetLanguage: "EN"
     )
     .modelContainer(DataManagement.getExampleContainer())
 }
-
