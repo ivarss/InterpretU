@@ -11,31 +11,26 @@ import SwiftData
 
 struct WordListView: View {
     @Environment(\.modelContext) var modelContext
+
     let category: String
     let sourceLanguage: String
     let targetLanguage: String
-    @Query var mainWords: [MainWord]
+
+    // Use a dynamically initialized query so we can capture `category`
+    @Query private var filteredWords: [MainWord]
+    init(category: String, sourceLanguage: String, targetLanguage: String) {
+        self.category = category
+        self.sourceLanguage = sourceLanguage
+        self.targetLanguage = targetLanguage
+        // Initialize the query with a predicate that uses the provided category
+        self._filteredWords = Query(filter: #Predicate<MainWord> { word in
+            word.cat.localizedStandardContains(category)
+        })
+    }
+
+    
 
     // Filtrerad lista baserat på kategori och språk
-    var filteredWords: [MainWord] {
-        mainWords.filter { word in
-            // Normalize inputs for robust comparison
-            let normalizedCategory = category.trimmingCharacters(in: .whitespacesAndNewlines)
-            let wordCategory = word.cat.trimmingCharacters(in: .whitespacesAndNewlines)
-
-            // 1. rätt kategori (skiftlägesokänslig)
-            guard wordCategory.caseInsensitiveCompare(normalizedCategory) == .orderedSame else { return false }
-
-            // 2. måste ha båda språken (normalisera till versaler)
-            let src = sourceLanguage.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-            let tgt = targetLanguage.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-            let hasSource = word.translation.contains { $0.lang.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == src }
-            let hasTarget = word.translation.contains { $0.lang.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == tgt }
-
-            return hasSource && hasTarget
-        }
-    }
 
     var body: some View {
         Text(category)
@@ -56,7 +51,8 @@ struct WordListView: View {
     WordListView(
         category: "Migration",
         sourceLanguage: "SV",
-        targetLanguage: "EN"
+        targetLanguage: "ES"
     )
     .modelContainer(DataManagement.getExampleContainer())
 }
+

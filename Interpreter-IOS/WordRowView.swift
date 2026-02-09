@@ -30,13 +30,13 @@ struct WordRowView: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text(mainWord.wordKey)
-            }
             Spacer()
             
+            Text(sourceText)
+            Text(targetText)
+
             ForEach(mainWord.translation) { tranWord in
-                Text(tranWord.tranText)
+                //Text(tranWord.tranText)
             }
 
             
@@ -60,9 +60,9 @@ struct WordRowView: View {
     }
 }
 
-/*
+
  #Preview {
- WordRowView()
+     WordRowView(mainWord: DataManagement.getaword(), sourceLanguage: "SV", targetLanguage: "ES"  )
          .modelContainer(DataManagement.getExampleContainer())
  }
- */
+ 

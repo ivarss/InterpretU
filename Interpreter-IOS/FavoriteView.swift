@@ -44,8 +44,8 @@ struct FavoriteView: View {
 
 #Preview {
     FavoriteView(
-        sourceLanguage: "Svenska",
-        targetLanguage: "English"
+        sourceLanguage: "SV",
+        targetLanguage: "EN"
     )
     .modelContainer(DataManagement.getExampleContainer())
 }
