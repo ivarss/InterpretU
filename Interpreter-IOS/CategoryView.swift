@@ -27,7 +27,6 @@ struct CategoryView: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationStack {
             ZStack{
                 Color(.systemGray5).ignoresSafeArea()
                 
@@ -125,7 +124,7 @@ struct CategoryView: View {
             }
         }
     }
-}
+
 
 #Preview {
     CategoryView(sourceLanguage: "SV", targetLanguage: "EN")

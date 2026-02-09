@@ -12,7 +12,6 @@ import SwiftData
 
 
 
-let languages = ["English 🇬🇧", "Español 🇪🇸", "Svenska 🇸🇪"]
 let languages = ["EN", "ES", "SV", "SO"]
 
 struct FirstView: View {
@@ -36,7 +35,6 @@ struct FirstView: View {
     }
     
     var body: some View {
-        NavigationStack{
             ZStack {
                 Color(.systemGray5).ignoresSafeArea() //Ljusgrå bakgrund
                 VStack {
@@ -161,9 +159,6 @@ struct FirstView: View {
         }
         
     }
-    
-        
-}
 
 #Preview {
     FirstView()
