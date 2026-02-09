@@ -27,6 +27,7 @@ struct CategoryView: View {
     @State private var searchText: String = ""
     
     var body: some View {
+        NavigationStack {
             ZStack{
                 Color(.systemGray5).ignoresSafeArea()
                 
@@ -77,54 +78,64 @@ struct CategoryView: View {
                             
                             
                             ForEach(categories, id: \.id) { category in
-                                VStack {
-                                    
-                                    
-                                    Image(systemName: category.icon)
-                                        .resizable()
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(
-                                            Color(red: 0.0, green: 0.55, blue: 0.25),   // primär (mörkare grön)
-                                            Color(red: 0.0, green: 0.55, blue: 0.25)    // sekundär (samma ton)
-                                        )
-                                        .scaledToFit()
-                                        .frame(width: 60, height: 60)
-                                        .padding(16)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.green.opacity(0.2)) //grön färg i cirkeln
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.gray, lineWidth: 1)
-                                                )
-                                        )  //linje runt cirkel
-                                    
-                                    Text(category.title)
+                                NavigationLink {
+                                    WordListView(
+                                        category: category.title,
+                                        sourceLanguage: sourceLanguage,
+                                        targetLanguage: targetLanguage
+                                    )
                                 }
-                                
-                                
-                                .font(.title2)
-                                .padding(12)
-                                .frame(maxWidth: .infinity, minHeight: 210)
-                                .background(RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
+                                label: {
+                                    VStack {
+                                        
+                                        
+                                        Image(systemName: category.icon)
+                                            .resizable()
+                                            .symbolRenderingMode(.palette)
+                                            .foregroundStyle(
+                                                Color(red: 0.0, green: 0.55, blue: 0.25),   // primär (mörkare grön)
+                                                Color(red: 0.0, green: 0.55, blue: 0.25)    // sekundär (samma ton)
+                                            )
+                                            .scaledToFit()
+                                            .frame(width: 60, height: 60)
+                                            .padding(16)
+                                            .background(
+                                                Circle()
+                                                    .fill(Color.green.opacity(0.2)) //grön färg i cirkeln
+                                                    .overlay(
+                                                        Circle()
+                                                            .stroke(Color.gray, lineWidth: 1)
+                                                    )
+                                            )  //linje runt cirkel
+                                        
+                                        Text(category.title)
+                                            . foregroundColor(.black)
+                                    }
+                                    
+                                    
+                                    .font(.title2)
+                                    .padding(12)
+                                    .frame(maxWidth: .infinity, minHeight: 210)
+                                    .background(RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                                }
                             }
+                            .padding(.top, 30)
+                            .padding(.horizontal)
                         }
-                        .padding(.top, 30)
-                        .padding(.horizontal)
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    .scrollContentBackground(.hidden)
+                    .navigationBarTitleDisplayMode(.inline)
                 }
-                .scrollContentBackground(.hidden)
-                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
-
+}
 
 #Preview {
     CategoryView(sourceLanguage: "SV", targetLanguage: "EN")

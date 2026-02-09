@@ -11,7 +11,6 @@ import SwiftData
 
 
 
-
 let languages = ["EN", "ES", "SV", "SO"]
 
 struct FirstView: View {
@@ -35,6 +34,7 @@ struct FirstView: View {
     }
     
     var body: some View {
+        NavigationStack{
             ZStack {
                 Color(.systemGray5).ignoresSafeArea() //Ljusgrå bakgrund
                 VStack {
@@ -134,23 +134,27 @@ struct FirstView: View {
              
                     Spacer()
                     
-                    NavigationLink(destination: CategoryView(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage)){
-                        Text(buttonText)
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 16)
-                            .frame(maxWidth: 150)
-                            .padding(.horizontal,40)
-                            .background(isContinueDisabled
-                                        ? Color.gray :
-                                            
-                                            Color(red: 0.0, green: 0.6, blue: 0.35))
-                            .clipShape(RoundedRectangle(cornerRadius:14))
-                            .multilineTextAlignment(.center)
-                        
-                        
-                    }
-                    .disabled(isContinueDisabled)
+                    NavigationLink(
+                                        destination: MainTabView(
+                                            sourceLanguage: sourceLanguage,
+                                            targetLanguage: targetLanguage
+                                        )
+                                    )
+                                    {
+                                        Text(buttonText)
+                                            .font(.title2)
+                                            .foregroundColor(.white)
+                                            .padding(.vertical, 16)
+                                            .frame(maxWidth: 150)
+                                            .padding(.horizontal,40)
+                                            .background(isContinueDisabled
+                                                        ? Color.gray :
+                                                            
+                                                            Color(red: 0.0, green: 0.6, blue: 0.35))
+                                            .clipShape(RoundedRectangle(cornerRadius:14))
+                                            .multilineTextAlignment(.center)
+                                    }.disabled(isContinueDisabled)
+                    
                     .padding(.bottom, 24)
                 }
                 
@@ -159,6 +163,9 @@ struct FirstView: View {
         }
         
     }
+    
+        
+}
 
 #Preview {
     FirstView()
