@@ -77,31 +77,49 @@ class DataManagement {
         }
     }
     
+    static func getaword() -> MainWord {
+        
+        var word = ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo", "Metabolism"]
+        var main =  MainWord(wordKey: String(word[0]), cat: String(word[1]), translation: [])
+        
+        var tWords = [Word]()
+        
+        let sv = Word(mWord: main, lang: "SV", tranText: String(word[2]))
+        let es = Word(mWord: main, lang: "ES", tranText: String(word[3]))
+        let en = Word(mWord: main, lang: "EN", tranText: String(word[4]))
+        
+        tWords.append(sv)
+        tWords.append(es)
+        tWords.append(en)
+        
+        main.translation = tWords
+
+        return main
+    }
     
     private func exampleData(context: ModelContext) {
         let exWords: [[String]] = [
-            ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo"],
-            ["Genome", "Medical", "Arvmassa", "Genoma"],
-            ["Crown", "Medical", "Hjässa", "Coronilla"],
-            ["Secretion", "Medical", "Utsöndring", "Secreción"],
-            ["EyeHole", "Medical", "Ögonhåla", "Órbita"],
-            ["Regime", "Municipality", "Statsskick", "Régimen"],
-            ["Government", "Municipality", "Regering", "Gobierno"],
-            ["County", "Municipality", "Län", "Provincia"],
-            ["Representative", "Municipality", "Ombud", "Representante"],
-            ["Welfare", "Municipality", "Välfärd", "Bienestar"],
-            ["Internally displaced person", "Migration", "Internflykting", "Desplazado interno"],
-            ["Processing", "Migration", "Handläggning", "Tramitación"],
-            ["Residence permit", "Migration", "Uppehållstillstånd", "Permiso de residencia"],
-            ["Stateless", "Migration", "Statslös", "Apátrida"],
-            ["Custody", "Migration", "Förvar", "Custodia"],
-            ["Precedent", "Law", "Prejudikat", "Precedente"],
-            ["Compensation", "Law", "Skadestånd", "Indemnización"],
-            ["Plaintiff", "Law", "Målsägande", "Demandante"],
-            ["Defendant", "Law", "Tilltalad", "Acusado"],
-            ["Legislation", "Law", "Lagstiftning", "Legislación"],
+            ["Metabolism", "Medical", "Ämnesomsättning", "Metabolismo", "Metabolism"],
+            ["Genome", "Medical", "Arvmassa", "Genoma", "Genome"],
+            ["Crown", "Medical", "Hjässa", "Coronilla", "Crown"],
+            ["Secretion", "Medical", "Utsöndring", "Secreción", "Secretion"],
+            ["EyeHole", "Medical", "Ögonhåla", "Órbita", "EyeHole"],
+            ["Regime", "Municipality", "Statsskick", "Régimen", "Regime"],
+            ["Government", "Municipality", "Regering", "Gobierno", "Government"],
+            ["County", "Municipality", "Län", "Provincia", "County"],
+            ["Representative", "Municipality", "Ombud", "Representante", "Representative"],
+            ["Welfare", "Municipality", "Välfärd", "Bienestar", "Welfare"],
+            ["Internally displaced person", "Migration", "Internflykting", "Desplazado interno", "Internally displaced person"],
+            ["Processing", "Migration", "Handläggning", "Tramitación", "Processing"],
+            ["Residence permit", "Migration", "Uppehållstillstånd", "Permiso de residencia", "Residence permit"],
+            ["Stateless", "Migration", "Statslös", "Apátrida", "Stateless"],
+            ["Custody", "Migration", "Förvar", "Custodia", "Custody"],
+            ["Precedent", "Law", "Prejudikat", "Precedente", "Precedent"],
+            ["Compensation", "Law", "Skadestånd", "Indemnización", "Compensation"],
+            ["Plaintiff", "Law", "Målsägande", "Demandante", "Plaintiff"],
+            ["Defendant", "Law", "Tilltalad", "Acusado", "Defendant"],
+            ["Legislation", "Law", "Lagstiftning", "Legislación", "Legislation"],
         ]
-        
         
         for word in exWords {
             /// mWord = 0
@@ -109,7 +127,7 @@ class DataManagement {
             /// SV = 2
             /// ES = 3
             
-            let main = MainWord(wordKey: String(word[0]), cat: String(word[1]), translation: [])
+            let main = MainWord(wordKey: String(word[0]), cat: String(word[1]), translation: [], isFav: true)
             context.insert(main)
             
             var tWords = [Word]()
@@ -117,9 +135,11 @@ class DataManagement {
             
             let sv = Word(mWord: main, lang: "SV", tranText: String(word[2]))
             let es = Word(mWord: main, lang: "ES", tranText: String(word[3]))
+            let en = Word(mWord: main, lang: "EN", tranText: String(word[4]))
             
             tWords.append(sv)
             tWords.append(es)
+            tWords.append(en)
             
             main.translation = tWords
         }

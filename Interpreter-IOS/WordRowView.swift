@@ -8,20 +8,39 @@
 import SwiftUI
 import SwiftData
 
+
 struct WordRowView: View {
+    
     @Bindable var mainWord: MainWord  // @Bindable för att kunna ändra
+    let sourceLanguage: String
+    let targetLanguage: String
+    
+    var sourceText: String {
+        mainWord.translation.first {
+            $0.lang == sourceLanguage
+        }?.tranText ?? ""
+    }
+
+    var targetText: String {
+        mainWord.translation.first {
+            $0.lang == targetLanguage
+        }?.tranText ?? ""
+    }
+
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text(mainWord.wordKey)
-            }
             Spacer()
             
-            // Dina översättningar...
+            Text(sourceText)
+            Text(targetText)
+
             ForEach(mainWord.translation) { tranWord in
-                Text(tranWord.tranText)
+                //Text(tranWord.tranText)
             }
+
+            
+            
             Spacer()
             // Stjärna till höger
             Button(action: {
@@ -41,9 +60,9 @@ struct WordRowView: View {
     }
 }
 
-/*
+
  #Preview {
- WordRowView()
+     WordRowView(mainWord: DataManagement.getaword(), sourceLanguage: "SV", targetLanguage: "ES"  )
          .modelContainer(DataManagement.getExampleContainer())
  }
- */
+ 
