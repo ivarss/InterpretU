@@ -70,8 +70,8 @@ struct CategoryView: View {
                         // Categories grid-like layout
                         LazyVGrid(columns:
                                     [
-                                        GridItem(.flexible(), spacing: 30),
-                                        GridItem(.flexible(), spacing: 30)
+                                        GridItem(.flexible(), spacing: 5),
+                                        GridItem(.flexible(), spacing: 5)
                                     ], spacing: 24)
                         {
                             
