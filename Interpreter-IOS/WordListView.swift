@@ -18,6 +18,32 @@ struct WordListView: View {
     
     @State private var searchText: String = ""
 
+    private var searchResults: [MainWord] {
+        let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        // If empty, return all words in this category (the default list already does this via @Query)
+        guard !trimmed.isEmpty else { return filteredWords }
+        do {
+            let predicate = #Predicate<MainWord> { main in
+                // Must be within the selected category
+                main.cat.localizedStandardContains(category) && (
+                    // Match main word key
+                    main.wordKey.localizedStandardContains(trimmed)
+                ||
+                    // Or any translation in selected source/target languages matches
+                    main.translation.contains { t in
+                        (t.lang == sourceLanguage || t.lang == targetLanguage) &&
+                        t.tranText.localizedStandardContains(trimmed)
+                    }
+                )
+            }
+            let descriptor = FetchDescriptor<MainWord>(predicate: predicate)
+            return try modelContext.fetch(descriptor)
+        } catch {
+            print("Search fetch failed: \(error)")
+            return []
+        }
+    }
+
     // Use a dynamically initialized query so we can capture `category`
     @Query private var filteredWords: [MainWord]
     init(category: String, sourceLanguage: String, targetLanguage: String) {
@@ -56,7 +82,7 @@ struct WordListView: View {
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .padding(.horizontal)
         List {
-            ForEach(filteredWords) { mainWord in
+            ForEach(searchResults) { mainWord in
                 WordRowView(
                     mainWord: mainWord,
                     sourceLanguage: sourceLanguage,
