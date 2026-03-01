@@ -29,33 +29,66 @@ struct WordRowView: View {
 
 
     var body: some View {
-        HStack {
-            Spacer()
-            
-            Text(sourceText)
-            Text(targetText)
+        HStack(alignment: .top, spacing: 12) {
+            // Leading accent and languages
+            VStack(alignment: .leading, spacing: 6) {
+                // Source text with a small language badge
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(sourceLanguage)
+                        .font(.caption2)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(Color.blue.opacity(0.12))
+                        .foregroundStyle(.blue)
+                        .clipShape(Capsule())
+                    Text(sourceText)
+                        .font(.system(size: 18, weight: .semibold))
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
-            ForEach(mainWord.translation) { tranWord in
-                //Text(tranWord.tranText)
+                // Divider line between languages
+                Divider()
+                    .opacity(0.2)
+
+                // Target text with a small language badge
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(targetLanguage)
+                        .font(.caption2)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(Color.green.opacity(0.12))
+                        .foregroundStyle(.green)
+                        .clipShape(Capsule())
+                    Text(targetText)
+                        .font(.system(size: 18))
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
 
-            
-            
-            Spacer()
-            // Stjärna till höger
+            // Favorite star on the trailing side
             Button(action: {
                 mainWord.isFavorite.toggle()
             }) {
                 Image(systemName: mainWord.isFavorite ? "star.fill" : "star")
-                    .foregroundStyle(mainWord.isFavorite ? .green : .gray)
+                    .font(.title3)
+                    .foregroundStyle(mainWord.isFavorite ? .yellow : .secondary)
+                    .padding(8)
+                    .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)  // För att undvika default-stil
-
+            .buttonStyle(.plain)
         }
-        .padding(20)
-        .frame(width: 356, height: 70)
-        .background(Color.white)
-        .cornerRadius(8)
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(Color(.systemBackground))
+                .shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 2)
+        )
+        .frame(maxWidth: 356, alignment: .leading)
         
     }
 }
@@ -66,3 +99,4 @@ struct WordRowView: View {
          .modelContainer(DataManagement.getExampleContainer())
  }
  
+
