@@ -65,14 +65,20 @@ struct CategoryView: View {
                         VStack {
                             HStack {
                                 Text(sourceLanguage)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(.blue)
+                                    .font(.system(size: 25))
                                 Spacer()
-                                Image(systemName: "arrow.right.circle.fill")
+                                Image(systemName: "arrow.left.arrow.right")
                                     .resizable()
                                     .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.white, Color(red: 0.0, green: 0.55, blue: 0.25))
+                                    .foregroundStyle(.orange, .blue)
                                     .frame(width: 50, height: 50)
                                 Spacer()
                                 Text(targetLanguage)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(.orange)
+                                    .font(.system(size: 25))
                             }
                             .padding(.horizontal, 50)
                         }
@@ -178,5 +184,6 @@ struct CategoryView: View {
 
 #Preview {
     CategoryView(sourceLanguage: "SV", targetLanguage: "EN")
+        .modelContainer(DataManagement.getExampleContainer())
 }
 
