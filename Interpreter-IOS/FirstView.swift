@@ -11,7 +11,7 @@ import SwiftData
 
 
 
-let languages = ["EN", "ES", "SV", "SO"]
+let languages = ["EN", "ES", "SV"]
 
 struct FirstView: View {
     @State private var sourceLanguage: String = ""
@@ -46,7 +46,7 @@ struct FirstView: View {
                                 }
                             }
                         }
-                    Image("EarthGlobe")
+                    Image("InterpretLogo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 180, height: 180)
