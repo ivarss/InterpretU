@@ -35,7 +35,7 @@ struct WordRowView: View {
                 // Source text with a small language badge
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text(sourceLanguage)
-                        .font(.caption2)
+                        .font(.headline)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
                         .background(Color.blue.opacity(0.12))
@@ -55,11 +55,11 @@ struct WordRowView: View {
                 // Target text with a small language badge
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text(targetLanguage)
-                        .font(.caption2)
+                        .font(.headline)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
-                        .background(Color.green.opacity(0.12))
-                        .foregroundStyle(.green)
+                        .background(Color.orange.opacity(0.12))
+                        .foregroundStyle(.orange)
                         .clipShape(Capsule())
                     Text(targetText)
                         .font(.system(size: 18))

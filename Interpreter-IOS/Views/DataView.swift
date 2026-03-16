@@ -41,51 +41,58 @@ struct DataView: View {
                         Button(action: {
                             dataMan.deleteData(context: modelContext)
                             ToastKit.present(message: "Deleted all Live-Data", color: Color.yellow) // Step 2
-                                }, label: {
-                                    Text("Delete Data")
-                                })
-                                .onAppear {
-                                    ToastKit.configure(type: .liquid) // Step 1
-                                }
+                        }, label: {
+                            Text("Delete Data")
+                        })
+                        .onAppear {
+                            ToastKit.configure(type: .liquid) // Step 1
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Reset to Default Data") {
+                            DataManagement().deleteData(context: modelContext)
+                            UserDefaults.standard.removeObject(forKey: "seededDataVersion")
+                            // Next launch will re-seed automatically
+                        }
+                    }
                             }
                         }
         
         // List to display all the Main words we have and each of their translated words and the languages for it.
         List {
             ForEach(mainWords) { mainWord in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Main")
-                        Text(mainWord.wordKey)
-                    }
-                    VStack(alignment: .center) {
-                        Text("Category")
-                        Text(mainWord.cat)
-                    }
-                    Spacer()
-                        DisclosureGroup {
-                            ForEach(mainWord.translation) { tranWord in
-                                VStack{
-                                    
-                                    HStack {
-                                        Text(tranWord.lang + ": ")
-                                        Text(tranWord.tranText)
-                                    }
-                                }
-                            }
-                        } label: {
-                            Spacer()
-                            VStack(alignment: .trailing) {
+                VStack{
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Main")
+                            Text(mainWord.wordKey)
+                        }
+                        Spacer()
+                        VStack(alignment: .center) {
+                            Text("Category")
+                            Text(mainWord.cat)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing) {
                             Text("Translations: ")
                             Text(String(mainWord.translation.count))
                         }
                     }
+                    DisclosureGroup {
+                        ForEach(mainWord.translation) { tranWord in
+                            HStack{
+                                Text(tranWord.lang + ": ")
+                                Text(tranWord.tranText)
+                            }
+                        }
+                    } label: {
+                        }
+                    }
                 }
             }
+            }
         }
-        }
-    }
-}
+        
 
 #Preview {
     return DataView()

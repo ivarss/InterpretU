@@ -11,7 +11,7 @@ import SwiftData
 
 
 
-let languages = ["EN", "ES", "SV", "SO"]
+let languages = ["EN", "ES", "SV"]
 
 struct FirstView: View {
     @State private var sourceLanguage: String = ""
@@ -38,15 +38,16 @@ struct FirstView: View {
             ZStack {
                 Color(.systemGray5).ignoresSafeArea() //Ljusgrå bakgrund
                 VStack {
-                    Text("")
+                    // Code for accessing the hidden Data Management View, For debugging purposes.
+                    /*Text("")
                         .toolbar {
                             ToolbarItem(placement: .topBarTrailing) {
                                 NavigationLink(destination: { DataView() }) {
                                     Label("Add Data", systemImage: "plus")
                                 }
                             }
-                        }
-                    Image("EarthGlobe")
+                        }*/
+                    Image("InterpretLogo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 180, height: 180)
