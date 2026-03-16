@@ -41,12 +41,20 @@ struct DataView: View {
                         Button(action: {
                             dataMan.deleteData(context: modelContext)
                             ToastKit.present(message: "Deleted all Live-Data", color: Color.yellow) // Step 2
-                                }, label: {
-                                    Text("Delete Data")
-                                })
-                                .onAppear {
-                                    ToastKit.configure(type: .liquid) // Step 1
-                                }
+                        }, label: {
+                            Text("Delete Data")
+                        })
+                        .onAppear {
+                            ToastKit.configure(type: .liquid) // Step 1
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Reset to Default Data") {
+                            DataManagement().deleteData(context: modelContext)
+                            UserDefaults.standard.removeObject(forKey: "seededDataVersion")
+                            // Next launch will re-seed automatically
+                        }
+                    }
                             }
                         }
         
@@ -85,7 +93,6 @@ struct DataView: View {
             }
         }
         
-    }
 
 #Preview {
     return DataView()
